@@ -47,6 +47,6 @@ if [ "$INSTALL" = 1 ]; then
 fi
 
 lando drush --yes sql-drop -y
-lando drush --yes sql-sync @lando.$TYPE @lando.dev
-lando drush --yes rsync @lando.$TYPE:%files @lando.dev:%files
+lando drush --yes sql-sync @lando.$TYPE @self
+lando drush --yes rsync @lando.$TYPE:%files @self:%files
 
