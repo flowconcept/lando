@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+PS3='Welches Tool verwendest Du: '
+tools=("Lando" "DDev")
+
+select tool in "${tools[@]}"
+do
+  case $tool in
+      "Lando")
+          USED_TOOL=lando
+          break;
+          ;;
+      "DDev")
+          USED_TOOL=ddev
+          break;
+          ;;
+    esac
+done
+
+
 PS3='Von welchem System sollen die Daten geholt werden: '
 options=("Staging (nur Datenabgleich)" "Staging (komplett)" "Produktion (nur Datenabgleich)" "Produktion (komplett)" "Quit")
 
@@ -46,7 +64,7 @@ if [ "$INSTALL" = 1 ]; then
   gulp build
 fi
 
-lando drush --yes sql-drop -y
-lando drush --yes sql-sync @lando.$TYPE @self
-lando drush --yes rsync @lando.$TYPE:%files @self:%files
+$USED_TOOL drush --yes sql-drop -y
+$USED_TOOL drush --yes sql-sync @lando.$TYPE @self
+$USED_TOOL drush --yes rsync @lando.$TYPE:%files @self:%files
 
